@@ -20,6 +20,7 @@ function AdminLogin() {
     setAdmin((pre) => ({ ...pre, [name]: value }))
 
   }
+  
   const hendaleSubmit = (e) => {
     e.preventDefault()
 

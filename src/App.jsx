@@ -14,6 +14,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
+          <Route path='*' element={<h1> page not Fount</h1>} />
           <Route path='/' element={<Home />} />
           <Route path='/adminregister' element={<AdminRegister />} />
           <Route path='/adminlogin' element={<AdminLogin />} />

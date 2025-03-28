@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { addStudent } from "../Feature/StudentDataSlice"
-import { useNavigate } from 'react-router-dom'
-import Swal from 'sweetalert2'
-
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addStudent } from "../Feature/StudentDataSlice";
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 function AddStudent() {
+    let nav = useNavigate();
+    let dispatch = useDispatch();
 
-    let nav = useNavigate()
-
-
-    let dispatch = useDispatch()
     useEffect(() => {
         let login = JSON.parse(localStorage.getItem('adminlogin')) || false;
         if (!login) {
             nav('/');
         }
-    }, [])
-
+    }, []);
 
     const [studentData, setStudentData] = useState({
         id: Math.floor(Math.random() * 1000),
@@ -28,23 +24,25 @@ function AddStudent() {
         dataofbirth: "",
         course: "",
         feestatus: ""
-    })
+    });
 
     const inputData = (e) => {
-        let name = e.target.name
-        let value = e.target.value
+        let { name, value } = e.target;
 
-        setStudentData((pre) => ({ ...pre, [name]: value }))
+        if (name === "name" && !/^[a-zA-Z\s]*$/.test(value)) {
+            return;
+        }
 
-    }
+        if (name === "phone" && !/^\d{0,10}$/.test(value)) {
+            return;
+        }
+
+        setStudentData((prev) => ({ ...prev, [name]: value }));
+    };
 
     const hendalSumitData = (e) => {
         e.preventDefault();
-
-        dispatch(addStudent(studentData))
-
-        console.log(studentData);
-
+        dispatch(addStudent(studentData));
 
         setStudentData({
             name: "",
@@ -54,24 +52,20 @@ function AddStudent() {
             dataofbirth: "",
             course: "",
             feestatus: ""
-        })
-        setTimeout(() => {
+        });
 
-            nav('/adminpage')
+        setTimeout(() => {
+            nav('/adminpage');
         }, 1900);
 
         Swal.fire({
-            title: "Student Add Successfully !",
+            title: "Student Added Successfully!",
             icon: "success",
             draggable: true,
             showConfirmButton: false,
             timer: 2000
         });
-
-
-
-    }
-
+    };
 
     return (
         <>
@@ -83,7 +77,16 @@ function AddStudent() {
                             <form onSubmit={hendalSumitData}>
                                 <div className="mb-3">
                                     <label htmlFor="name" className="form-label">Name</label>
-                                    <input type="text" className="form-control" id="name" required name='name' value={studentData.name} onChange={inputData} />
+                                    <input 
+                                        type="text" 
+                                        className="form-control" 
+                                        id="name" 
+                                        required 
+                                        name='name' 
+                                        value={studentData.name} 
+                                        onChange={inputData} 
+                                        placeholder="Enter student name"
+                                    />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="email" className="form-label">Email</label>
@@ -91,7 +94,17 @@ function AddStudent() {
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="phone" className="form-label">Phone Number</label>
-                                    <input type="tel" className="form-control" id="phone" maxLength={10} required name='phone' value={studentData.phone} onChange={inputData} />
+                                    <input 
+                                        type="tel" 
+                                        className="form-control" 
+                                        id="phone" 
+                                        required 
+                                        name='phone' 
+                                        maxLength="10"
+                                        value={studentData.phone} 
+                                        onChange={inputData} 
+                                        placeholder="Enter 10-digit phone number"
+                                    />
                                 </div>
                                 <div className="mb-3">
                                     <label className="form-label">Gender</label><br />
@@ -115,40 +128,36 @@ function AddStudent() {
                                 <div className="mb-3">
                                     <label htmlFor="course" className="form-label">Course</label>
                                     <select className="form-select" id="course" required name='course' value={studentData.course} onChange={inputData}>
-                                        <option value="Select a Course">Select a Course</option>
+                                        <option value="" disabled>Select a Course</option>
                                         <option value="Full Stack Development">Full Stack Development</option>
                                         <option value="Front-End Development">Front-End Development</option>
                                         <option value="Back-End Development">Back-End Development</option>
                                         <option value="App Development">App Development</option>
-                                        <option value="Game Developmentt">Game Developmentt</option>
+                                        <option value="Game Development">Game Development</option>
                                         <option value="UI & UX Design">UI & UX Design</option>
                                         <option value="Graphics Design">Graphics Design</option>
                                         <option value="Cyber Security">Cyber Security</option>
                                         <option value="C.C.C">C.C.C</option>
                                     </select>
                                 </div>
-
-
                                 <div className="mb-3">
-                                    <label htmlFor="course" className="form-label">Fee Status</label>
-                                    <select className="form-select" id="course" required name='feestatus' value={studentData.feestatus} onChange={inputData}>
-                                        <option value="Select status">Select status</option>
+                                    <label htmlFor="feestatus" className="form-label">Fee Status</label>
+                                    <select className="form-select" id="feestatus" required name='feestatus' value={studentData.feestatus} onChange={inputData}>
+                                        <option value="" disabled>Select status</option>
                                         <option value="Paid">Paid</option>
                                         <option value="Unpaid">Unpaid</option>
-
                                     </select>
                                 </div>
-
-
                                 <button type="submit" className="btn btn-primary w-100">Add Student Data</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-
         </>
-    )
+    );
 }
 
-export default AddStudent
+export default AddStudent;
+
+

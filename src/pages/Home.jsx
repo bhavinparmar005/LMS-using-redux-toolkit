@@ -11,13 +11,13 @@ function Home() {
                 <div className="student_and_admin_main">
                     <div className="sudent_icon"  onClick={()=>nav('/adminlogin')}>
                         <div className="student_img_main">
-                        <i class="bi bi-person-gear"></i>
+                        <i className="bi bi-person-gear"></i>
                          </div>
                         <h3 className='heading'>Admin</h3>
                     </div>
                     <div className="sudent_icon" onClick={()=>nav("/studentlogin")} >
                         <div className="student_img_main">
-                        <i class="bi bi-person"></i>
+                        <i className="bi bi-person"></i>
                          </div>
                         <h3 className='heading'>Student</h3>
                     </div>

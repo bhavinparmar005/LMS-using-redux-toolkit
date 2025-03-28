@@ -6,12 +6,13 @@ import { deleteStudent } from "../Feature/StudentDataSlice";
 import Swal from "sweetalert2";
 
 function AdminPage() {
+
+
   let nav = useNavigate();
   let dispatch = useDispatch();
   const [searchData, setSearchData] = useState("");
   let adminName = JSON.parse(localStorage.getItem("registrationadmin")) || [];
-
-
+  let totalStudents = JSON.parse(localStorage.getItem("studentData")) || [];
 
   useEffect(()=>{
     let login = JSON.parse(localStorage.getItem('adminlogin')) || false;
@@ -19,8 +20,6 @@ function AdminPage() {
       nav('/');
     }
 },[])
-
-
 
   const { studentData } = useSelector((state) => {
     return state.studentData;
@@ -56,6 +55,18 @@ function AdminPage() {
     }, 2000)
   }
 
+  let paidFee = 0;
+
+  let unpaidFee = 0;
+
+  totalStudents.map((val)=>{
+    if(val.feestatus === "Paid") {
+      paidFee++;
+    } else {
+      unpaidFee++
+    }
+  })
+
   // console.log(fillterData);
 
   return (
@@ -77,14 +88,14 @@ function AdminPage() {
           <div className="icons d-flex justify-content-center align-items-center fs-1 text-light">
             <i className="bi bi-person-fill-check"></i>
           </div>
-          <div className="student_info text-light fs-4 ">5</div>
+          <div className="student_info text-light fs-4 ">{paidFee}</div>
         </div>
         <div className="student_box mt-3 bg-warning  flex_proparty">
           <h2 className="text-light mt-2">Student Fee Unpaid</h2>
           <div className="icons d-flex justify-content-center align-items-center fs-1 text-light">
             <i className="bi bi-person-fill-exclamation"></i>
           </div>
-          <div className="student_info text-light fs-4 ">5</div>
+          <div className="student_info text-light fs-4 ">{unpaidFee}</div>
         </div>
       </div>
 
@@ -165,20 +176,6 @@ function AdminPage() {
                     </th>
                   </tr>
                 )}
-
-                {/* <tr>
-                                    <td>1</td>
-                                    <td>John Doe</td>
-                                    <td>john@example.com</td>
-                                    <td>+1234567890</td>
-                                    <td>Male</td>
-                                    <td>1995-08-12</td>
-                                    <td>Computer Science</td>
-                                    <td>
-                                        <button className="btn btn-primary btn-sm m-2" onClick={() => nav('/editstudent')}><i className="bi bi-pencil "></i></button>
-                                        <button className="btn btn-danger btn-sm m-2"><i className="bi bi-trash"></i></button>
-                                    </td>
-                                </tr> */}
               </tbody>
             </table>
           </div>

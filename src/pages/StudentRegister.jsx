@@ -4,13 +4,14 @@ import Swal from 'sweetalert2'
 function StudentRegister() {
 
   let nav = useNavigate()
+  let totalStudents = JSON.parse(localStorage.getItem("studentData")) || [];
   const [student, setStudent] = useState({
     name: '',
     email: '',
     password: '',
     confirmPassword: ''
   })
-  const[multiStudent,setMultiStudent]=useState(JSON.parse(localStorage.getItem('registrationStudent')) ||[])
+  const [multiStudent, setMultiStudent] = useState(JSON.parse(localStorage.getItem('registrationStudent')) || [])
   const studentData = (e) => {
     let name = e.target.name
     let value = e.target.value
@@ -18,25 +19,44 @@ function StudentRegister() {
   }
   const submitData = (e) => {
     e.preventDefault()
-    if (student.password !== student.confirmPassword) {
+
+    let nameAuthentication = totalStudents.find((val)=>{
+      return (
+        val.name === student.name
+      )
+    })
+
+    
+
+    if (student.password !== student.confirmPassword ) {
       Swal.fire({
         position: "center",
         icon: "info",
         title: "Password and Confirm Password not match",
         showConfirmButton: true,
-        
+
       });
-      
+
       setStudent({
         name: '',
         email: '',
         password: '',
         confirmPassword: ''
       })
-    } else {
-      
+    } else if(nameAuthentication === undefined) {
+
+      Swal.fire({
+        position: "center",
+        icon: "info",
+        title: "Name is not matched.",
+        showConfirmButton: true,
+
+      });
+
+    }else {
+
       // setMultiStudent([...multiStudent,student] )
-      let allStudent = [...multiStudent,student]
+      let allStudent = [...multiStudent, student]
       setMultiStudent(allStudent)
       localStorage.setItem('registrationStudent', JSON.stringify(allStudent))
       // console.log(allStudent);
@@ -76,7 +96,7 @@ function StudentRegister() {
               </div>
               <div className="mb-3">
                 <label htmlFor="password" className="form-label">Password</label>
-                <input type="password" className="form-control" id="password" placeholder="Enter password" required  name='password' value={student.password} onChange={studentData}/>
+                <input type="password" className="form-control" id="password" placeholder="Enter password" required name='password' value={student.password} onChange={studentData} />
               </div>
               <div className="mb-3">
                 <label htmlFor="confirm-password" className="form-label">Confirm Password</label>
