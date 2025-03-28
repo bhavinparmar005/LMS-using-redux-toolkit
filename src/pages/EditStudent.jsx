@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { editStudent } from "../Feature/StudentDataSlice"
 import { useDispatch } from 'react-redux'
@@ -10,11 +10,7 @@ function EditStudent() {
 
     let location = useLocation()
     let nav = useNavigate()
-
-
-
     let dispatch = useDispatch()
-
     const [studentData, setStudentData] = useState({
         id: "" || location.state.id,
         name: "" || location.state.name,
@@ -66,9 +62,10 @@ function EditStudent() {
 
     }
 
+
     return (
         <>
-            <div className="container mt-5">
+            <div className="container mt-5 mb-5">
                 <div className="row justify-content-center">
                     <div className="col-md-8 col-lg-6 col-sm-12">
                         <div className="p-4 border rounded shadow-sm">
@@ -122,7 +119,7 @@ function EditStudent() {
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="course" className="form-label">Fee Status</label>
-                                    <select className="form-select" id="course" required name='course' value={studentData.feestatus} onChange={inputData}>
+                                    <select className="form-select" id="course" required name='feestatus' value={studentData.feestatus} onChange={inputData}>
                                         <option value="Select status">Select status</option>
                                         <option value="Paid">Paid</option>
                                         <option value="Unpaid">Unpaid</option>

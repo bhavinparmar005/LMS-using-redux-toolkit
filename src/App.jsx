@@ -15,14 +15,14 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/adminlogin' element={<AdminLogin />} />
           <Route path='/adminregister' element={<AdminRegister />} />
-          <Route path='/studentlogin' element={<StudentLogin />} />
-          <Route path='/studentregister' element={<StudentRegister />} />
+          <Route path='/adminlogin' element={<AdminLogin />} />
           <Route path='/adminpage' element={<AdminPage />} />
-          <Route path='/studentpage' element={<StudentPage />} />
           <Route path='/addstudent' element={<AddStudent />} />
           <Route path='/editstudent' element={<EditStudent />} />
+          <Route path='/studentlogin' element={<StudentLogin />} />
+          <Route path='/studentregister' element={<StudentRegister />} />
+          <Route path='/studentpage' element={<StudentPage />} />
         </Routes>
       </BrowserRouter>
 

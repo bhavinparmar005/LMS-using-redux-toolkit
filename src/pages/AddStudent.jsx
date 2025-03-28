@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addStudent } from "../Feature/StudentDataSlice"
 import { useNavigate } from 'react-router-dom'
@@ -11,16 +11,23 @@ function AddStudent() {
 
 
     let dispatch = useDispatch()
+    useEffect(() => {
+        let login = JSON.parse(localStorage.getItem('adminlogin')) || false;
+        if (!login) {
+            nav('/');
+        }
+    }, [])
+
 
     const [studentData, setStudentData] = useState({
-        id: Math.floor(Math.random()*1000),
+        id: Math.floor(Math.random() * 1000),
         name: "",
         email: "",
         phone: "",
         gender: "",
         dataofbirth: "",
         course: "",
-        feestatus :""
+        feestatus: ""
     })
 
     const inputData = (e) => {
@@ -36,6 +43,9 @@ function AddStudent() {
 
         dispatch(addStudent(studentData))
 
+        console.log(studentData);
+
+
         setStudentData({
             name: "",
             email: "",
@@ -43,10 +53,10 @@ function AddStudent() {
             gender: "",
             dataofbirth: "",
             course: "",
-            feestatus :""
+            feestatus: ""
         })
         setTimeout(() => {
-            
+
             nav('/adminpage')
         }, 1900);
 
@@ -56,15 +66,16 @@ function AddStudent() {
             draggable: true,
             showConfirmButton: false,
             timer: 2000
-          });
+        });
 
 
 
     }
 
+
     return (
         <>
-            <div className="container mt-5">
+            <div className="container mt-5 mb-5">
                 <div className="row justify-content-center">
                     <div className="col-md-8 col-lg-6 col-sm-12">
                         <div className="p-4 border rounded shadow-sm">
@@ -120,11 +131,11 @@ function AddStudent() {
 
                                 <div className="mb-3">
                                     <label htmlFor="course" className="form-label">Fee Status</label>
-                                    <select className="form-select" id="course" required name='course' value={studentData.feestatus} onChange={inputData}>
+                                    <select className="form-select" id="course" required name='feestatus' value={studentData.feestatus} onChange={inputData}>
                                         <option value="Select status">Select status</option>
                                         <option value="Paid">Paid</option>
                                         <option value="Unpaid">Unpaid</option>
-                                       
+
                                     </select>
                                 </div>
 

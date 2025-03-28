@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState ={
-    studentData:JSON.parse(localStorage.getItem('std')) ||[]
+    studentData:JSON.parse(localStorage.getItem('studentData')) ||[]
     
 }
 
@@ -16,7 +16,7 @@ const StudentDataSlice = createSlice({
         addStudent : (state ,action)=>{
            
             state.studentData.push(action.payload);
-            localStorage.setItem('std',JSON.stringify(state.studentData))
+            localStorage.setItem('studentData',JSON.stringify(state.studentData))
             // console.log(action.payload);
             // console.log(state);
             
@@ -47,7 +47,7 @@ const StudentDataSlice = createSlice({
                 }
               
 
-                localStorage.setItem('std',JSON.stringify(state.studentData))
+                localStorage.setItem('studentData',JSON.stringify(state.studentData))
 
         
             
@@ -59,7 +59,7 @@ const StudentDataSlice = createSlice({
                     val.id != action.payload
                 )
             })
-            localStorage.setItem('std',JSON.stringify(state.studentData))
+            localStorage.setItem('studentData',JSON.stringify(state.studentData))
            
             
 
