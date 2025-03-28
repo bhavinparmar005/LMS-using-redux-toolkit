@@ -18,7 +18,7 @@ function StudentLogin() {
                 <label htmlFor="password" className="form-label">Password</label>
                 <input type="password" className="form-control" id="password" placeholder="Enter password"  required />
               </div>
-              <button type="submit" className="btn btn-primary w-100" onClick={()=> nav('/studentpage')}>Login</button>
+              <button type="submit" className="btn btn-primary w-100" >Login</button>
             </form>
             <p className="text-center mt-3">Don't have an account? <Link to={`/studentregister`}>Register</Link></p>
           </div>
