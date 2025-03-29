@@ -7,7 +7,12 @@ import Swal from 'sweetalert2'
 
 
 function EditStudent() {
-
+    useEffect(() => {
+        let login = JSON.parse(localStorage.getItem('adminlogin')) || false;
+        if (!login) {
+            nav('/');
+        }
+    }, []);
     let location = useLocation()
     let nav = useNavigate()
     let dispatch = useDispatch()
@@ -40,8 +45,6 @@ function EditStudent() {
 
     const hendalSumitData = (e) => {
         e.preventDefault();
-
-        // console.log(studentData);
 
         dispatch(editStudent(studentData))
 

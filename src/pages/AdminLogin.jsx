@@ -1,10 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 
 
 function AdminLogin() {
   let nav = useNavigate()
+
+    useEffect(()=>{
+      let login = JSON.parse(localStorage.getItem('adminlogin')) || false;
+      if(login){
+        nav('/adminpage');
+      }
+  },[])
   const [adminRegisterData, setAdminRegisterData] = useState(JSON.parse(localStorage.getItem('registrationadmin')) || [])
   const [admin, setAdmin] = useState({
      email: '',

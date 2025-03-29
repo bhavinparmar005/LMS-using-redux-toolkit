@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
 function StudentRegister() {
 
   let nav = useNavigate()
+  const [allRegisterStudent ,setAllRegisterStudent] =useState( JSON.parse(localStorage.getItem('')) || [])
   let totalStudents = JSON.parse(localStorage.getItem("studentData")) || [];
   const [student, setStudent] = useState({
     name: '',
@@ -11,7 +12,13 @@ function StudentRegister() {
     password: '',
     confirmPassword: ''
   })
-  const [multiStudent, setMultiStudent] = useState(JSON.parse(localStorage.getItem('registrationStudent')) || [])
+
+  useEffect(() => {
+    console.log(totalStudents);
+
+  }, [])
+
+
   const studentData = (e) => {
     let name = e.target.name
     let value = e.target.value
@@ -20,65 +27,38 @@ function StudentRegister() {
   const submitData = (e) => {
     e.preventDefault()
 
-    let nameAuthentication = totalStudents.find((val)=>{
+
+    let findName = totalStudents.find((val) => {
       return (
-        val.name === student.name
+        val.name == student.name && val.email == student.email
       )
     })
 
-    
+    if (findName) {
+      if(student.password !== student.confirmPassword){
+        console.log("Password is not match");
+        
+      } else{
 
-    if (student.password !== student.confirmPassword ) {
-      Swal.fire({
-        position: "center",
-        icon: "info",
-        title: "Password and Confirm Password not match",
-        showConfirmButton: true,
-
-      });
-
-      setStudent({
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-      })
-    } else if(nameAuthentication === undefined) {
-
-      Swal.fire({
-        position: "center",
-        icon: "info",
-        title: "Name is not matched.",
-        showConfirmButton: true,
-
-      });
-
-    }else {
-
-      // setMultiStudent([...multiStudent,student] )
-      let allStudent = [...multiStudent, student]
-      setMultiStudent(allStudent)
-      localStorage.setItem('registrationStudent', JSON.stringify(allStudent))
-      // console.log(allStudent);
-      Swal.fire({
-        icon: 'success',
-        title: 'Registration Successfull',
-        showConfirmButton: false,
-        timer: 2000
-      });
-
-      setStudent({
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-      })
-
-      setTimeout(() => {
-        nav('/studentlogin')
-      }, 1900);
+         let finalList = [...allRegisterStudent,student]
+         setAllRegisterStudent(finalList)
+         localStorage.setItem('RegisterStudentData', JSON.stringify(finalList));
+        console.log(finalList);
+      }
+    } 
+    else {
+      console.log("Admin not student define");
     }
+
+    setStudent({
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
+    })
+
   }
+
   return (
     <>
       <div className="container d-flex justify-content-center align-items-center " style={{ height: '100vh' }}>

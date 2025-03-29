@@ -1,9 +1,11 @@
-import React from 'react'
+
 import './Home.css'
 import { useNavigate } from 'react-router-dom'
 
 function Home() {
     let nav =useNavigate()
+
+   
     return (
         <>
             <div className="main">
