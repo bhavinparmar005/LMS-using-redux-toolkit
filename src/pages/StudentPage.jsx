@@ -7,20 +7,18 @@ function StudentPage() {
 
   let nav = useNavigate()
   let logedinStudentData = JSON.parse(localStorage.getItem('studentLogin')) || []
-  
-  useEffect(()=>{
-      let login = JSON.parse(localStorage.getItem('studentLogin')) || false;
-      if(!login){
-        nav('/');
-      }
-  },[])
+
+  useEffect(() => {
+    let login = JSON.parse(localStorage.getItem('studentLogin')) || false;
+    if (!login) {
+      nav('/');
+    }
+  }, [])
 
   function LogOut() {
 
 
     localStorage.removeItem('studentLogin')
-
-
 
     Swal.fire({
       title: "Student Logout Successfully !",
@@ -47,7 +45,7 @@ function StudentPage() {
             <div className="profile-card">
               {logedinStudentData.gender == "Male" ? (
                 <img
-                  src="../../src/assets/male-student.svg"
+                  src="./male-student.svg"
                   className=" mb-3 hello"
                   alt="Profile Picture"
                   height={"115px"}
@@ -55,7 +53,7 @@ function StudentPage() {
                 />
               ) : (
                 <img
-                  src="../../src/assets/female-student.svg"
+                  src="./female-student.svg"
                   className=" mb-3 hello"
                   alt="Profile Picture"
                   height={"115px"}

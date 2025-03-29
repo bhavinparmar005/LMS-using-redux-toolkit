@@ -85,7 +85,7 @@ function EditStudent() {
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="email" className="form-label">Email</label>
-                                    <input type="email" className="form-control" id="email" required name='email' value={studentData.email} onChange={inputData} />
+                                    <input type="email" placeholder='Enter Student Email' className="form-control" id="email" required name='email' value={studentData.email} onChange={inputData} />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="phone" className="form-label">Phone Number</label>
