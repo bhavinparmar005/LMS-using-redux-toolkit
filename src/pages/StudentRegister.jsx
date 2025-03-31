@@ -1,9 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2'
+
 function StudentRegister() {
 
   let nav = useNavigate()
+  useEffect(() => {
+    let login = JSON.parse(localStorage.getItem('loginStudentData')) || false;
+    if (login) {
+      nav('/studentpage');
+    }
+  }, [])
   const [allRegisterStudent, setAllRegisterStudent] = useState(JSON.parse(localStorage.getItem('')) || [])
   let totalStudents = JSON.parse(localStorage.getItem("studentData")) || [];
   const [student, setStudent] = useState({
@@ -12,12 +19,6 @@ function StudentRegister() {
     password: '',
     confirmPassword: ''
   })
-
-  // useEffect(() => {
-  //   console.log(totalStudents);
-
-  // }, [])
-
 
   const studentData = (e) => {
     let name = e.target.name

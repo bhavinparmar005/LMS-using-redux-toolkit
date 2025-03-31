@@ -14,26 +14,33 @@ function AdminPage() {
   let adminName = JSON.parse(localStorage.getItem("registrationadmin")) || [];
   let totalStudents = JSON.parse(localStorage.getItem("studentData")) || [];
 
-  useEffect(()=>{
+  useEffect(() => {
     let login = JSON.parse(localStorage.getItem('adminlogin')) || false;
-    if(!login){
+    if (!login) {
       nav('/');
     }
-},[])
+  }, [])
 
   const { studentData } = useSelector((state) => {
     return state.studentData;
   });
 
   const studentDataDelete = (id) => {
-    dispatch(deleteStudent(id));
+
 
     Swal.fire({
-      title: "Student Delete Successfully !",
-      icon: "success",
-      draggable: true,
-      showConfirmButton: false,
-      timer: 2000,
+      title: "Do you want Remove Student !",
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "YES",
+      denyButtonText: `No`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire("Student Data Delete Successfully !", "", "success");
+        dispatch(deleteStudent(id));
+      } else if (result.isDenied) {
+        Swal.fire("Changes are not saved", "", "info");
+      }
     });
   };
 
@@ -59,8 +66,8 @@ function AdminPage() {
 
   let unpaidFee = 0;
 
-  totalStudents.map((val)=>{
-    if(val.feestatus === "Paid") {
+  totalStudents.map((val) => {
+    if (val.feestatus === "Paid") {
       paidFee++;
     } else {
       unpaidFee++
@@ -74,7 +81,7 @@ function AdminPage() {
       <h1 className="text-center mt-2 text-danger fw-bold">{adminName.name}</h1>
 
       <div className="container box2">
-        <div className="student_box mt-3 bg-primary  flex_proparty">
+        <div className="student_box mt-3 bg-primary  flex_proparty" onClick={() => nav('/allstudent')}>
           <h2 className="text-light mt-2">Total Student</h2>
           <div className="icons d-flex justify-content-center align-items-center fs-1 text-light">
             <i className="bi bi-person-fill"></i>

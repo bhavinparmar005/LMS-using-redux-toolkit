@@ -6,19 +6,19 @@ import Swal from 'sweetalert2'
 function AdminLogin() {
   let nav = useNavigate()
 
-    useEffect(()=>{
-      let login = JSON.parse(localStorage.getItem('adminlogin')) || false;
-      if(login){
-        nav('/adminpage');
-      }
-  },[])
+  useEffect(() => {
+    let login = JSON.parse(localStorage.getItem('adminlogin')) || false;
+    if (login) {
+      nav('/adminpage');
+    }
+  }, [])
   const [adminRegisterData, setAdminRegisterData] = useState(JSON.parse(localStorage.getItem('registrationadmin')) || [])
   const [admin, setAdmin] = useState({
-     email: '',
+    email: '',
     password: ''
   })
-  
-  
+
+
 
   const adminData = (e) => {
     let name = e.target.name
@@ -27,30 +27,30 @@ function AdminLogin() {
     setAdmin((pre) => ({ ...pre, [name]: value }))
 
   }
-  
+
   const hendaleSubmit = (e) => {
     e.preventDefault()
 
-  
+
     if (adminRegisterData.email === admin.email && adminRegisterData.password === admin.password) {
-      
+
       localStorage.setItem('adminlogin', JSON.stringify(admin))
       Swal.fire({
         title: " Login Successfully !",
         icon: "success",
-            draggable: true,
-            showConfirmButton: false,
-            timer: 1900
-          });
-          
+        draggable: true,
+        showConfirmButton: false,
+        timer: 1900
+      });
 
-          setTimeout(() => {
-            nav('/adminpage')
-          }, 2000);
-      
-      
-      
-    }else{
+
+      setTimeout(() => {
+        nav('/adminpage')
+      }, 2000);
+
+
+
+    } else {
 
       Swal.fire({
         title: " your Password Not Match ! && first Register Then Login",
@@ -62,10 +62,10 @@ function AdminLogin() {
 
       setTimeout(() => {
         nav('/adminregister')
-        
+
       }, 1900);
-      
-      
+
+
     }
 
     setAdmin({
@@ -73,11 +73,11 @@ function AdminLogin() {
       password: ''
     })
 
-  
 
-  
 
-   
+
+
+
 
 
   }
