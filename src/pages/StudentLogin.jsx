@@ -7,11 +7,8 @@ function StudentLogin() {
 
   let nav = useNavigate()
 
-  const allStudentData = JSON.parse(localStorage.getItem('studentData')) || [];
 
-  
-  
-  const studentRegisterData = JSON.parse(localStorage.getItem('registrationStudent')) || [];
+  let studentRegisterData = JSON.parse(localStorage.getItem('RegisterStudentData')) || [];
 
   const [student, setStudent] = useState(
     {
@@ -32,75 +29,64 @@ function StudentLogin() {
   const hendaleSubmit = (e) => {
     e.preventDefault()
 
-    let logedinStudent = studentRegisterData.find((val) => {
+    // console.log(student);
+    // console.log(studentRegisterData);
+
+    let filterRegistarData = studentRegisterData.find((val) => {
       return (
         val.email === student.email && val.password === student.password
       )
     })
 
-    if (logedinStudent === undefined) {
-
+    if (filterRegistarData) {
       Swal.fire({
-        title: " Please Check your Password ! Or If You Not Registered Yet ! Then Please Resiter First",
+        title: " Login Successfully !",
+        icon: "success",
+        draggable: true,
+        showConfirmButton: false,
+        timer: 1900
+      });
+      console.log(filterRegistarData);
+
+      localStorage.setItem('loginStudentData', JSON.stringify(filterRegistarData))
+
+      setTimeout(() => {
+        nav('/studentpage')
+      }, 2000);
+
+
+    } else {
+      Swal.fire({
+        title: " Admin has not added you yet ! Please, Login leter.",
         icon: "error",
         draggable: true,
         showConfirmButton: false,
         timer: 2000
       });
-
       setTimeout(() => {
         nav('/studentregister')
-
-      }, 1900);
-
-    } else {
-
-      let authenticatedStudent = allStudentData.find((val)=>{
-        return (
-          val.name === logedinStudent.name && val.email === logedinStudent.email 
-        )
-      })
-
-      console.log(authenticatedStudent);
-
-      if (authenticatedStudent !== undefined) {
-
-        localStorage.setItem('studentLogin', JSON.stringify(authenticatedStudent))
-
-        Swal.fire({
-          title: " Login Successfully !",
-          icon: "success",
-          draggable: true,
-          showConfirmButton: false,
-          timer: 1900
-        });
-  
-  
-        setTimeout(() => {
-          nav('/studentpage')
-        }, 2000);
-        
-      } else{
-
-        Swal.fire({
-          title: " Please Check your Password ! Or If You Not Registered Yet ! Then Please Resiter First",
-          icon: "error",
-          draggable: true,
-          showConfirmButton: false,
-          timer: 2000
-        });
-
-      }
-
-      
-
-      
+      }, 2000);
 
     }
 
 
+    setStudent({
+      email: '',
+      password: ''
+    })
+
 
   }
+
+
+
+
+
+
+
+
+
+
 
 
 

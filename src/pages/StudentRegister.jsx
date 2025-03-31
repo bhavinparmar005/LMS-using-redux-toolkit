@@ -4,7 +4,7 @@ import Swal from 'sweetalert2'
 function StudentRegister() {
 
   let nav = useNavigate()
-  const [allRegisterStudent ,setAllRegisterStudent] =useState( JSON.parse(localStorage.getItem('')) || [])
+  const [allRegisterStudent, setAllRegisterStudent] = useState(JSON.parse(localStorage.getItem('')) || [])
   let totalStudents = JSON.parse(localStorage.getItem("studentData")) || [];
   const [student, setStudent] = useState({
     name: '',
@@ -13,10 +13,10 @@ function StudentRegister() {
     confirmPassword: ''
   })
 
-  useEffect(() => {
-    console.log(totalStudents);
+  // useEffect(() => {
+  //   console.log(totalStudents);
 
-  }, [])
+  // }, [])
 
 
   const studentData = (e) => {
@@ -35,19 +35,46 @@ function StudentRegister() {
     })
 
     if (findName) {
-      if(student.password !== student.confirmPassword){
-        console.log("Password is not match");
-        
-      } else{
+      if (student.password !== student.confirmPassword) {
+        Swal.fire({
+          title: " Your Password Not Match !",
+          icon: "error",
+          draggable: true,
+          showConfirmButton: false,
+          timer: 2000
+        });
 
-         let finalList = [...allRegisterStudent,student]
-         setAllRegisterStudent(finalList)
-         localStorage.setItem('RegisterStudentData', JSON.stringify(finalList));
-        console.log(finalList);
+      } else {
+
+        let finalList = [...allRegisterStudent, student]
+        setAllRegisterStudent(finalList)
+        localStorage.setItem('RegisterStudentData', JSON.stringify(finalList));
+        // console.log(finalList);
+
+        Swal.fire({
+          title: " Register Successfully !",
+          icon: "success",
+          draggable: true,
+          showConfirmButton: false,
+          timer: 1900
+        });
+
+
+        setTimeout(() => {
+          nav('/studentlogin')
+        }, 2000);
       }
-    } 
+    }
     else {
-      console.log("Admin not student define");
+
+      Swal.fire({
+        title: " Admin not student Add !",
+        icon: "error",
+        draggable: true,
+        showConfirmButton: false,
+        timer: 2000
+      });
+
     }
 
     setStudent({

@@ -6,19 +6,30 @@ import Swal from "sweetalert2";
 function StudentPage() {
 
   let nav = useNavigate()
-  let logedinStudentData = JSON.parse(localStorage.getItem('studentLogin')) || []
+  let logedinStudentData = JSON.parse(localStorage.getItem('loginStudentData')) || []
 
-  useEffect(() => {
-    let login = JSON.parse(localStorage.getItem('studentLogin')) || false;
-    if (!login) {
-      nav('/');
-    }
-  }, [])
+  let allStudentData =JSON.parse(localStorage.getItem('studentData')) || []
+
+  // useEffect(() => {
+  //   let login = JSON.parse(localStorage.getItem('studentLogin')) || false;
+  //   if (!login) {
+  //     nav('/');
+  //   }
+  // }, [])
+
+   let PrintStudentData= allStudentData.find((val)=>{
+    return(
+      val.name === logedinStudentData.name && val.email ===logedinStudentData.email
+    )
+   })
+
+  //  console.log(PrintStudentData);
+   
 
   function LogOut() {
 
 
-    localStorage.removeItem('studentLogin')
+    localStorage.removeItem('loginStudentData')
 
     Swal.fire({
       title: "Student Logout Successfully !",
@@ -43,7 +54,7 @@ function StudentPage() {
         <div className="row justify-content-center">
           <div className="col-md-4 ">
             <div className="profile-card">
-              {logedinStudentData.gender == "Male" ? (
+              {PrintStudentData.gender == "Male" ? (
                 <img
                   src="./male-student.svg"
                   className=" mb-3 hello"
@@ -61,12 +72,12 @@ function StudentPage() {
                 />
               )}
 
-              <h5>{logedinStudentData.name}</h5>
+              <h5>{PrintStudentData.name}</h5>
               <p>
-                <strong>Student ID:</strong> {logedinStudentData.id}
+                <strong>Student ID:</strong> {PrintStudentData.id}
               </p>
               <p>
-                <strong>Course:</strong> {logedinStudentData.course}
+                <strong>Course:</strong> {PrintStudentData.course}
               </p>
             </div>
           </div>
@@ -79,23 +90,23 @@ function StudentPage() {
                 <tbody>
                   <tr>
                     <td>Email</td>
-                    <td>: {logedinStudentData.email}</td>
+                    <td>: {PrintStudentData.email}</td>
                   </tr>
                   <tr>
                     <td>Phone Number</td>
-                    <td>: {logedinStudentData.phone}</td>
+                    <td>: {PrintStudentData.phone}</td>
                   </tr>
                   <tr>
                     <td>Date Of Birth</td>
-                    <td>: {logedinStudentData.dataofbirth}</td>
+                    <td>: {PrintStudentData.dataofbirth}</td>
                   </tr>
                   <tr>
                     <td>Gender</td>
-                    <td>: {logedinStudentData.gender}</td>
+                    <td>: {PrintStudentData.gender}</td>
                   </tr>
                   <tr>
                     <td>Fee Status</td>
-                    <td>: {logedinStudentData.feestatus}</td>
+                    <td>: {PrintStudentData.feestatus}</td>
                   </tr>
                 </tbody>
               </table>
