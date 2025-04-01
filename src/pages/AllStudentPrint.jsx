@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 
 function AllStudentPrint() {
     let nav = useNavigate()
+    useEffect(() => {
+        let login = JSON.parse(localStorage.getItem('adminlogin')) || false;
+        if (!login) {
+            nav('/');
+        }
+    }, []);
     let allstudent = JSON.parse(localStorage.getItem('studentData')) || []
     return (
         <>

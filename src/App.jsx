@@ -10,6 +10,7 @@ import StudentPage from './pages/StudentPage'
 import AddStudent from './pages/AddStudent'
 import EditStudent from './pages/EditStudent'
 import AllStudentPrint from './pages/AllStudentPrint'
+import New from './pages/New'
 function App() {
   return (
     <>
@@ -26,6 +27,7 @@ function App() {
           <Route path='/studentregister' element={<StudentRegister />} />
           <Route path='/studentpage' element={<StudentPage />} />
           <Route path='/allstudent' element={<AllStudentPrint />} />
+          <Route path='/new' element={<New />} />
         </Routes>
       </BrowserRouter>
 

@@ -77,14 +77,14 @@ function AddStudent() {
                             <form onSubmit={hendalSumitData}>
                                 <div className="mb-3">
                                     <label htmlFor="name" className="form-label">Name</label>
-                                    <input 
-                                        type="text" 
-                                        className="form-control" 
-                                        id="name" 
-                                        required 
-                                        name='name' 
-                                        value={studentData.name} 
-                                        onChange={inputData} 
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="name"
+                                        required
+                                        name='name'
+                                        value={studentData.name}
+                                        onChange={inputData}
                                         placeholder="Enter student name"
                                     />
                                 </div>
@@ -94,15 +94,15 @@ function AddStudent() {
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="phone" className="form-label">Phone Number</label>
-                                    <input 
-                                        type="tel" 
-                                        className="form-control" 
-                                        id="phone" 
-                                        required 
-                                        name='phone' 
+                                    <input
+                                        type="tel"
+                                        className="form-control"
+                                        id="phone"
+                                        required
+                                        name='phone'
                                         maxLength="10"
-                                        value={studentData.phone} 
-                                        onChange={inputData} 
+                                        value={studentData.phone}
+                                        onChange={inputData}
                                         placeholder="Enter 10-digit phone number"
                                     />
                                 </div>

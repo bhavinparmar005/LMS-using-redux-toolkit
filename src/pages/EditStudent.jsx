@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { editStudent } from "../Feature/StudentDataSlice"
 import { useDispatch } from 'react-redux'
@@ -7,12 +7,7 @@ import Swal from 'sweetalert2'
 
 
 function EditStudent() {
-    useEffect(() => {
-        let login = JSON.parse(localStorage.getItem('adminlogin')) || false;
-        if (!login) {
-            nav('/');
-        }
-    }, []);
+
     let location = useLocation()
     let nav = useNavigate()
     let dispatch = useDispatch()

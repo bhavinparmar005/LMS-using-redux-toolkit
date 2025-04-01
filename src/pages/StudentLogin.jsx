@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Swal from 'sweetalert2';
 
@@ -6,7 +6,12 @@ import Swal from 'sweetalert2';
 function StudentLogin() {
 
   let nav = useNavigate()
-
+  useEffect(() => {
+    let login = JSON.parse(localStorage.getItem('loginStudentData')) || false;
+    if (login) {
+      nav('/studentpage')
+    }
+  }, [])
 
 
   let studentRegisterData = JSON.parse(localStorage.getItem('RegisterStudentData')) || [];

@@ -1,11 +1,23 @@
 
+import { useEffect } from 'react';
 import './Home.css'
 import { useNavigate } from 'react-router-dom'
 
 function Home() {
     let nav = useNavigate()
- 
 
+    useEffect(() => {
+        let login = JSON.parse(localStorage.getItem('loginStudentData')) || false;
+        if (login) {
+            nav('/studentpage')
+        }
+    }, [])
+    useEffect(() => {
+        let login = JSON.parse(localStorage.getItem('adminlogin')) || false;
+        if (login) {
+            nav('/adminpage');
+        }
+    }, [])
 
     return (
         <>

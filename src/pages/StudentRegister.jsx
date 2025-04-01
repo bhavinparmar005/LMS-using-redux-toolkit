@@ -8,7 +8,7 @@ function StudentRegister() {
   useEffect(() => {
     let login = JSON.parse(localStorage.getItem('loginStudentData')) || false;
     if (login) {
-      nav('/studentpage');
+      nav('/studentpage')
     }
   }, [])
   const [allRegisterStudent, setAllRegisterStudent] = useState(JSON.parse(localStorage.getItem('')) || [])
