@@ -11,7 +11,7 @@ function StudentRegister() {
       nav('/studentpage')
     }
   }, [])
-  const [allRegisterStudent, setAllRegisterStudent] = useState(JSON.parse(localStorage.getItem('')) || [])
+  const [allRegisterStudent, setAllRegisterStudent] = useState(JSON.parse(localStorage.getItem('RegisterStudentData')) || [])
   let totalStudents = JSON.parse(localStorage.getItem("studentData")) || [];
   const [student, setStudent] = useState({
     name: '',
@@ -25,6 +25,8 @@ function StudentRegister() {
     let value = e.target.value
     setStudent((pre) => ({ ...pre, [name]: value }))
   }
+
+  
   const submitData = (e) => {
     e.preventDefault()
 
@@ -44,13 +46,12 @@ function StudentRegister() {
           showConfirmButton: false,
           timer: 2000
         });
-
       } else {
 
         let finalList = [...allRegisterStudent, student]
         setAllRegisterStudent(finalList)
         localStorage.setItem('RegisterStudentData', JSON.stringify(finalList));
-        // console.log(finalList);
+        console.log(finalList);
 
         Swal.fire({
           title: " Register Successfully !",
